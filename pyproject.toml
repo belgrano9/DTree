@@ -15,9 +15,10 @@ scikit-learn = "^1.5.1"
 streamlit = "^1.38.0"
 
 
+pdf2image = "^1.17.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-run-dashboard = "streamlit run app/dashboard.py" 
+run-dashboard = "streamlit run app/dashboard.py"
