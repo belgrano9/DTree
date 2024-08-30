@@ -204,4 +204,4 @@ class DecisionTree:
             return current_node_id  # Return the current node's ID
 
         _visualize_node(self.root, "Root")
-        dot.render(f"examples/{filename}", view=True)
+        dot.render(f"examples/{filename}", format="svg", view=False)

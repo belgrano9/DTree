@@ -55,7 +55,7 @@ def create_stacked_bar_data(class_counts):
 
 def plot_nodesamples(n_samples):
     fig, ax = plt.subplots()  # Create figure and axes
-    ax.plot(range(len(n_samples)), n_samples, marker="o")
+    ax.plot(range(1, len(n_samples) + 1), n_samples, marker="o")
     ax.set_xlabel("Node Number")
     ax.set_ylabel("Number of Samples")
     ax.set_title("Node Number vs. Number of Samples")
@@ -65,9 +65,9 @@ def plot_nodesamples(n_samples):
 def plot_stacked(class_counts):
     class_0_counts, class_1_counts = create_stacked_bar_data(class_counts)
     fig, ax = plt.subplots()  # Create figure and axes
-    ax.bar(range(len(class_0_counts)), class_0_counts, label="Class 0")
+    ax.bar(range(1, len(class_0_counts) + 1), class_0_counts, label="Class 0")
     ax.bar(
-        range(len(class_1_counts)),
+        range(1, len(class_1_counts) + 1),
         class_1_counts,
         bottom=class_0_counts,
         label="Class 1",

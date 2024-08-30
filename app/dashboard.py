@@ -15,6 +15,8 @@ from sklearn.datasets import (
 from PIL import Image
 from pdf2image import convert_from_path
 
+# style to rag left/right
+
 
 def main():
     # --- Create a Slightly More Complex Dataset ---
@@ -26,18 +28,45 @@ def main():
 
     # --- Visualize the tree ---
     tree.visualize_tree()  # Save the visualization to examples/decision_tree.pdf
-    images = convert_from_path("examples/decision_tree.pdf", dpi=300)
-    image = images[0]
+    # images = convert_from_path("examples/decision_tree.pdf", dpi=300)
+    # image = images[0]
     # --- Get node statistics ---
     depths, n_samples, class_counts = get_node_statistics(tree)
 
     # --- Streamlit Dashboard ---
+    st.markdown(
+        """
+    <style>
+        .block-container {
+            padding: 0;
+            margin: 0;
+        }
+        [data-testid="column"] {
+            padding: 0;
+            margin: 0;
+        }
+        [data-testid="stVerticalBlock"] {
+            padding: 0;
+            margin: 0;
+        }
+        .stImage > img {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
     st.title("Decision Tree Dashboard")
 
     # --- Left column (image) ---
     col1, col2 = st.columns(2, gap="large")  # Create two columns
     with col1:
-        st.image(image, width=400)  # Adjust width as needed
+        st.markdown('<div class="ragged-left">', unsafe_allow_html=True)
+        st.image("examples/decision_tree.svg", width=400)
+        st.markdown("</div>", unsafe_allow_html=True)
+        # st.image(image, width=400)  # Adjust width as needed
 
     # --- Right column (plots) ---
     with col2:
