@@ -6,21 +6,23 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.datasets import (
+    make_moons,
+)  # Use make_moons for a slightly more complex dataset
 from dtree.tree import DecisionTree
 from dtree.utils import get_node_statistics, plot_nodesamples, plot_stacked
 
-# Create a sample dataset (or load your own)
-X = np.array([[1, 2], [2, 3], [3, 1], [4, 2]])
-y = np.array([0, 1, 0, 1])
+# --- Create a Slightly More Complex Dataset ---
+X, y = make_moons(n_samples=100, noise=0.25, random_state=42)
 
-# Train the decision tree
-tree = DecisionTree(max_depth=2)
+# --- Train the decision tree ---
+tree = DecisionTree(max_depth=3)
 tree.fit(X, y)
 
-# Visualize the tree
+# --- Visualize the tree ---
 tree.visualize_tree()
 
-# Get node statistics
+# --- Get node statistics ---
 depths, n_samples, class_counts = get_node_statistics(tree)
 
 plot_nodesamples(n_samples)

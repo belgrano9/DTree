@@ -1,0 +1,87 @@
+// Decision Tree
+digraph {
+	1 [label="Node: 1
+Feature: 1
+Threshold: -0.022329129271583925
+Samples: 100
+Class 1: 50.0%
+Class 0: 50.0%
+Gini: 0.500
+Gain: 0.217"]
+	2 [label="Node: 2
+Feature: 0
+Threshold: -0.9929751341629496
+Samples: 38
+Class 1: 92.1%
+Class 0: 7.9%
+Gini: 0.145
+Gain: 0.046"]
+	3 [label="Node: 3
+Class: 0
+Samples: 1
+Class 0: 100.0%
+"]
+	2 -> 3 [label=True]
+	4 [label="Node: 4
+Feature: 1
+Threshold: -0.04677163765240616
+Samples: 37
+Class 1: 94.6%
+Class 0: 5.4%
+Gini: 0.102
+Gain: 0.014"]
+	5 [label="Node: 5
+Class: 1
+Samples: 34
+Class 1: 97.1%
+Class 0: 2.9%
+"]
+	4 -> 5 [label=True]
+	6 [label="Node: 6
+Class: 1
+Samples: 3
+Class 1: 66.7%
+Class 0: 33.3%
+"]
+	4 -> 6 [label=False]
+	2 -> 4 [label=False]
+	1 -> 2 [label=True]
+	7 [label="Node: 7
+Feature: 0
+Threshold: 1.373024987874373
+Samples: 62
+Class 1: 24.2%
+Class 0: 75.8%
+Gini: 0.367
+Gain: 0.146"]
+	8 [label="Node: 8
+Feature: 1
+Threshold: 0.6347566883982738
+Samples: 55
+Class 1: 14.5%
+Class 0: 85.5%
+Gini: 0.249
+Gain: 0.027"]
+	9 [label="Node: 9
+Class: 0
+Samples: 26
+Class 1: 26.9%
+Class 0: 73.1%
+"]
+	8 -> 9 [label=True]
+	10 [label="Node: 10
+Class: 0
+Samples: 29
+Class 0: 96.6%
+Class 1: 3.4%
+"]
+	8 -> 10 [label=False]
+	7 -> 8 [label=True]
+	11 [label="Node: 11
+Class: 1
+Samples: 7
+Class 1: 100.0%
+"]
+	7 -> 11 [label=False]
+	1 -> 7 [label=False]
+}

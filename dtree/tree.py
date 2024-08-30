@@ -1,7 +1,14 @@
+"""
+Implementation from scratch of DecisionTree. 
+
+This file contains the tree class.
+"""
+
 from typing import List, Tuple, Dict, Any
 from .node import Node
 from collections import Counter
 import numpy as np  # Make sure to import numpy
+import graphviz
 
 
 class DecisionTree:
@@ -81,11 +88,12 @@ class DecisionTree:
             or len(set(y)) == 1
         ):  # All samples belong to the same class
 
-            # Create a leaf node
+            # Create a leaf node (Corrected part)
             leaf_value = Counter(y).most_common(1)[0][0]  # Most frequent class
             return Node(
                 value=leaf_value,
-                stats={"n_samples": n_samples, "class_counts": Counter(y)},
+                n_samples=n_samples,  # Set n_samples for leaf nodes
+                class_counts=Counter(y),  # Set class_counts for leaf nodes
             )
 
         # Find the best split
@@ -156,3 +164,44 @@ class DecisionTree:
             )
             self.print_tree(node.left, depth + 1)
             self.print_tree(node.right, depth + 1)
+
+    def visualize_tree(self, filename="decision_tree"):
+        """Visualize the decision tree using graphviz."""
+        dot = graphviz.Digraph(comment="Decision Tree")
+        node_counter = 0  # Initialize node counter
+
+        def _visualize_node(node, node_id):
+            nonlocal node_counter  # Access the outer node_counter
+
+            if node is None:  # Check if node is None (base case)
+                return
+
+            node_counter += 1
+            current_node_id = str(node_counter)  # Use node counter as ID
+
+            if node.value is not None:  # Leaf node
+                label = f"Node: {current_node_id}\nClass: {node.value}\nSamples: {node.n_samples}\n"
+                for cls, count in node.class_counts.items():
+                    percentage = (count / node.n_samples) * 100
+                    label += f"Class {cls}: {percentage:.1f}%\n"
+                dot.node(current_node_id, label)
+            else:  # Decision node
+                label = f"Node: {current_node_id}\nFeature: {node.feature}\nThreshold: {node.threshold}\nSamples: {node.n_samples}\n"
+                for cls, count in node.class_counts.items():
+                    percentage = (count / node.n_samples) * 100
+                    label += f"Class {cls}: {percentage:.1f}%\n"
+                label += f"Gini: {node.gini_impurity:.3f}\nGain: {node.info_gain:.3f}"
+                dot.node(current_node_id, label)
+
+                # Recursively visualize left and right children
+                if node.left:
+                    left_child_id = _visualize_node(node.left, current_node_id + "L")
+                    dot.edge(current_node_id, left_child_id, label="True")
+                if node.right:
+                    right_child_id = _visualize_node(node.right, current_node_id + "R")
+                    dot.edge(current_node_id, right_child_id, label="False")
+
+            return current_node_id  # Return the current node's ID
+
+        _visualize_node(self.root, "Root")
+        dot.render(f"examples/{filename}", view=True)

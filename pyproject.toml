@@ -9,8 +9,15 @@ readme = "README.md"
 python = "^3.12"
 numpy = "^2.1.0"
 pytest = "^8.3.2"
+graphviz = "^0.20.3"
+matplotlib = "^3.9.2"
+scikit-learn = "^1.5.1"
+streamlit = "^1.38.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+run-dashboard = "streamlit run app/dashboard.py" 
